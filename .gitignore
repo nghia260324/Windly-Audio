@@ -1,0 +1,7 @@
+# /public/javascripts/
+!public/javascripts-ob/
+/node_modules
+/songs
+/Data
+/.env
+/obfuscate-public.js
