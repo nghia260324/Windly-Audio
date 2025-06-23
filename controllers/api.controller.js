@@ -4,7 +4,6 @@ const { readOrFetchObject } = require('../utils/objectCache');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-const fetch = require('node-fetch');
 
 class ApiController {
     async streamAudio(req, res) {
