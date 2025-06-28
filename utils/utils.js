@@ -3,24 +3,43 @@ const MEDIA_SECRET = process.env.THUMBNAIL_SECRET || 'your-secret-key';
 
 
 
-function signMediaToken({ type, id }, ip, ua) {
-  return jwt.sign({ type, id, ip, ua }, MEDIA_SECRET, { expiresIn: '6h' });
-}
+// function signMediaToken({ type, id }, ip, ua) {
+//   // return jwt.sign({ type, id, ip, ua }, MEDIA_SECRET, { expiresIn: '6h' });
+//   return jwt.sign({ type, id }, MEDIA_SECRET, { expiresIn: '6h' });
+// }
 
-function verifyMediaToken(token, currentIp, currentUa) {
+// function verifyMediaToken(token, currentIp, currentUa) {
+//   try {
+//     const decoded = jwt.verify(token, MEDIA_SECRET);
+//     // if (decoded.ip !== currentIp || decoded.ua !== currentUa) return null;
+
+//     const { type, id } = decoded;
+//     if (!type || !id) return null;
+
+//     return { type, id };
+//   } catch (err) {
+//     return null;
+//   }
+// }
+
+function signMediaToken({ type, id }) {
+  return jwt.sign(
+    { type, id },
+    MEDIA_SECRET,
+    { expiresIn: '6h' } // hoặc '1h', '15m' tùy mức độ bảo mật
+  );
+}
+function verifyMediaToken(token) {
   try {
     const decoded = jwt.verify(token, MEDIA_SECRET);
-    if (decoded.ip !== currentIp || decoded.ua !== currentUa) return null;
-
     const { type, id } = decoded;
-    if (!type || !id) return null;
 
+    if (!type || !id) return null;
     return { type, id };
   } catch (err) {
     return null;
   }
 }
-
 
 function strictMediaAccess(req, res, next) {
   const referer = req.get('Referer') || '';

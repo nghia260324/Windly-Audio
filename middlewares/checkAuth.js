@@ -133,6 +133,7 @@ const authUser = asyncHandler(async (req, res, next) => {
             });
 
             req.user = user;
+            res.locals.user = user;
             return next();
         } catch (err) {
             console.log(err.message);
@@ -151,6 +152,7 @@ const authUser = asyncHandler(async (req, res, next) => {
     }
 
     req.user = user;
+    res.locals.user = user;
     next();
 });
 
@@ -200,6 +202,7 @@ const authAdmin = asyncHandler(async (req, res, next) => {
                 maxAge: COOKIE_MAX_AGE || 15 * 60 * 1000,
             });
             req.user = user;
+            res.locals.user = user;
             return next();
         } catch (err) {
             console.log(err.message)
@@ -219,6 +222,7 @@ const authAdmin = asyncHandler(async (req, res, next) => {
     }
 
     req.user = user;
+    res.locals.user = user;
     next();
 });
 
